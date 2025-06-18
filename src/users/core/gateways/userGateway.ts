@@ -1,3 +1,5 @@
+import { User } from '../domain/user';
+
 export interface UserGateway {
-  getAllUsers(): Promise<any>;
+  getAllUsers(): Promise<User[]>;
 }
