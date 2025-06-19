@@ -11,4 +11,11 @@ export class UserGatewayAdapter implements UserGateway {
         const userEntity = await this.userRepository.find();
         return userEntity.map((user) => UserEntityMapper.toDomain(user));
     }
+
+    async createUser(user: User): Promise<number> {
+        const savedUser = await this.userRepository.save(
+            UserEntityMapper.toEntity(user),
+        );
+        return savedUser.id;
+    }
 }
