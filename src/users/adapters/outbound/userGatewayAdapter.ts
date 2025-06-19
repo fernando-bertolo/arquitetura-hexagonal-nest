@@ -1,13 +1,14 @@
 import { User } from 'src/users/core/domain/user';
 import { UserGateway } from 'src/users/core/gateways/userGateway';
+import { Repository } from 'typeorm';
+import { UserEntity } from './database/typeorm/entities/userEntity';
+import { UserEntityMapper } from './mappers/userEntityMapper';
 
 export class UserGatewayAdapter implements UserGateway {
-  async getAllUsers(): Promise<User[]> {
-    return new Promise((resolve) => {
-      resolve([
-        new User('João', 'joao@email.com', '123456'),
-        new User('Fernando', 'fernando@email.com', '123456'),
-      ]);
-    });
-  }
+    constructor(private readonly userRepository: Repository<UserEntity>) {}
+
+    async getAllUsers(): Promise<User[]> {
+        const userEntity = await this.userRepository.find();
+        return userEntity.map((user) => UserEntityMapper.toDomain(user));
+    }
 }

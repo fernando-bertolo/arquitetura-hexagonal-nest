@@ -37,3 +37,4 @@ src/
      ├── core/               # Entities, Use Cases e regras de negócio
      ├── composition-root.ts # Injeção de dependências do contexto
      └── user.module.ts      # Módulo NestJS do contexto
+```
